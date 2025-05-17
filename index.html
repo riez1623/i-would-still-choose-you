@@ -2,34 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>I’d Still Choose You</title>
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Cardo:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <div class="transition-overlay" id="transitionOverlay"></div>
-
-  <div class="intro-screen" id="introScreen">
+  <div id="intro-screen">
     <h1>I’d Still Choose You</h1>
-    <button id="readButton">Read</button>
+    <button id="read-btn">Read</button>
   </div>
 
-  <div class="device-picker" id="devicePicker">
-    <h2>Choose your device</h2>
-    <div class="device-buttons">
-      <button class="device" data-device="phone">Phone</button>
-      <button class="device" data-device="tablet">Tablet</button>
-      <button class="device" data-device="pc">PC</button>
-    </div>
+  <div id="device-screen" style="display: none;">
+    <h2>Choose a Device</h2>
+    <button id="mobile-btn">Phone</button>
+    <button id="tablet-btn">Tablet</button>
+    <button id="pc-btn">PC</button>
   </div>
 
-  <div class="book-container" id="bookContainer">
-    <button class="nav-button left" id="prevPage">&lt;</button>
-    <div class="page" id="bookPage"></div>
-    <button class="nav-button right" id="nextPage">&gt;</button>
-  </div>
-
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
 </body>
 </html>
