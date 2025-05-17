@@ -161,6 +161,13 @@ button:hover {
   right: 5px;
 }
 
+/* Disabled buttons fade */
+#prev-btn:disabled, #next-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
 /* Page curl shadow effect on flipping */
 .page.flipped {
   box-shadow:
