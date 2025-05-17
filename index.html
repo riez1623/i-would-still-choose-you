@@ -6,15 +6,57 @@
   <title>I'd still choose you</title>
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Roboto&display=swap" rel="stylesheet" />
   <style>
-    body {
-      margin: 0;
-      padding: 20px;
-      background: #fdf6e3;
+    body, html {
+      margin: 0; padding: 0; height: 100%;
       font-family: 'Roboto', sans-serif;
+      background: #fdf6e3;
       color: #333;
-      position: relative; /* needed for footer positioning */
-      min-height: 100vh; /* ensure full height */
+      overflow: hidden;
     }
+    /* Intro Screen Styles */
+    #intro {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+      box-sizing: border-box;
+      background: #fdf6e3;
+      position: relative;
+    }
+    #intro p {
+      font-size: 1.3em;
+      margin-bottom: 30px;
+      color: #b04e4e;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+    #intro button {
+      background: #b04e4e;
+      border: none;
+      color: white;
+      font-size: 1.5em;
+      padding: 12px 30px;
+      border-radius: 8px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s ease;
+    }
+    #intro button:hover {
+      background: #8a3939;
+    }
+    
+    /* Book Container hidden initially */
+    #book-container {
+      display: none;
+      padding: 20px;
+      height: 100vh;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
     h1 {
       font-family: 'Great Vibes', cursive;
       text-align: center;
@@ -62,8 +104,9 @@
     .buttons {
       text-align: center;
       margin-top: 30px;
+      user-select: none;
     }
-    button {
+    button.nav-btn {
       background: #b04e4e;
       border: none;
       color: white;
@@ -75,47 +118,39 @@
       transition: background 0.3s ease;
       user-select: none;
     }
-    button:hover {
+    button.nav-btn:hover {
       background: #8a3939;
-    }
-    /* NEW: fixed footer with recommendation */
-    .recommendation {
-      position: fixed;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.9em;
-      color: #b04e4e;
-      background: #fff8f8;
-      padding: 6px 12px;
-      border-radius: 8px;
-      box-shadow: 0 0 6px rgba(176, 78, 78, 0.4);
-      text-align: center;
-      max-width: 90vw;
-      z-index: 1000;
-      line-height: 1.3;
-      font-weight: 500;
     }
   </style>
 </head>
 <body>
-  <h1>I'd still choose you</h1>
-  <div class="book">
-    <div class="page" id="left-page"></div>
-    <div class="middle-line"></div>
-    <div class="page" id="right-page"></div>
-  </div>
-  <div class="buttons">
-    <button id="prev">&lt;</button>
-    <button id="next">&gt;</button>
+  
+  <!-- Intro Screen -->
+  <div id="intro">
+    <p>Recommended for tablet/PC.<br>If you're using a phone, turn to landscape for the best experience.</p>
+    <button id="start-btn">Okay Riez</button>
   </div>
 
-  <div class="recommendation">
-    Recommended for tablet/PC.<br />
-    If you're using a phone, turn to landscape for the best experience.
+  <!-- Book Content -->
+  <div id="book-container">
+    <h1>I'd still choose you</h1>
+    <div class="book">
+      <div class="page" id="left-page"></div>
+      <div class="middle-line"></div>
+      <div class="page" id="right-page"></div>
+    </div>
+    <div class="buttons">
+      <button id="prev" class="nav-btn">&lt;</button>
+      <button id="next" class="nav-btn">&gt;</button>
+    </div>
   </div>
 
   <script>
+    const intro = document.getElementById('intro');
+    const bookContainer = document.getElementById('book-container');
+    const startBtn = document.getElementById('start-btn');
+
+    // Book pages content array (your story)
     const pages = [
       `It all started when i was just laying on my bed, i was so bored, my friends were all busy, the others were doing school activities while others were just playing.  I was really bored and i thought i could talk to a new person or a new friend, i always thought having new friends was always a good idea.`,
       `I then asked my friend named Ahron if he had some friends that i could talk to, i also told him that i wanted to talk to a girl haha, well he told me about this girl, her name was Ciara. Of course i started searching for her social, then i finally found it,  i started talking to her and wow. she's so kind, sweet and friendly.`,
@@ -161,31 +196,55 @@
     ];
 
     let currentPage = 0;
-
     const leftPage = document.getElementById('left-page');
     const rightPage = document.getElementById('right-page');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
 
     function renderPages() {
       leftPage.textContent = pages[currentPage] || "";
       rightPage.textContent = pages[currentPage + 1] || "";
+      // Disable prev button if at start
+      prevBtn.disabled = currentPage === 0;
+      // Disable next button if at end
+      nextBtn.disabled = currentPage + 2 >= pages.length;
     }
 
-    document.getElementById('prev').addEventListener('click', () => {
+    prevBtn.addEventListener('click', () => {
       if (currentPage > 0) {
         currentPage -= 2;
         renderPages();
       }
     });
 
-    document.getElementById('next').addEventListener('click', () => {
+    nextBtn.addEventListener('click', () => {
       if (currentPage + 2 < pages.length) {
         currentPage += 2;
         renderPages();
       }
     });
 
-    // Initialize the first pages
-    renderPages();
+    startBtn.addEventListener('click', async () => {
+      // Request fullscreen
+      const elem = document.documentElement;
+      try {
+        if (elem.requestFullscreen) {
+          await elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) { /* Safari */
+          await elem.webkitRequestFullscreen();
+        } else if (elem.msRequestFullscreen) { /* IE11 */
+          await elem.msRequestFullscreen();
+        }
+      } catch (err) {
+        console.warn("Fullscreen request denied or failed:", err);
+      }
+      
+      // Hide intro, show book
+      intro.style.display = 'none';
+      bookContainer.style.display = 'block';
+      
+      renderPages();
+    });
   </script>
 </body>
 </html>
