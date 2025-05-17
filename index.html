@@ -2,23 +2,24 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>I’d Still Choose You</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>First Love - Book</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div id="intro-screen">
-    <h1>I’d Still Choose You</h1>
-    <button id="read-btn">Read</button>
+  <div class="book-container">
+    <div class="book">
+      <div class="page left-page" id="leftPage"></div>
+      <div class="spine"></div>
+      <div class="page right-page" id="rightPage"></div>
+    </div>
+
+    <div class="controls">
+      <button id="prevBtn">&lt; Prev</button>
+      <button id="nextBtn">Next &gt;</button>
+    </div>
   </div>
 
-  <div id="device-screen" style="display: none;">
-    <h2>Choose a Device</h2>
-    <button id="mobile-btn">Phone</button>
-    <button id="tablet-btn">Tablet</button>
-    <button id="pc-btn">PC</button>
-  </div>
-
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
