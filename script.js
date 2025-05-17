@@ -21,16 +21,17 @@ startReadingBtn.addEventListener('click', () => {
 
 function showPage(index) {
   pages.forEach((page, i) => {
-    page.style.zIndex = pages.length - i;
     if (i <= index) {
       page.classList.add('flipped');
       page.style.transform = 'rotateY(-180deg)';
-      page.style.left = i % 2 === 0 ? '0' : '50%';
     } else {
       page.classList.remove('flipped');
       page.style.transform = 'rotateY(0deg)';
-      page.style.left = i % 2 === 0 ? '0' : '50%';
     }
+    // Position left or right page:
+    page.style.left = i % 2 === 0 ? '0' : '50%';
+    // zIndex: flipped pages behind, others on top
+    page.style.zIndex = i <= index ? i : pages.length - i;
   });
 }
 
