@@ -1,74 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>First Love - Book</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>First Love - Simple Book</title>
+<style>
+  /* Basic reset */
+  * {
+    box-sizing: border-box;
+    user-select: none;
+  }
+  body {
+    margin: 0;
+    background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+    font-family: 'Georgia', serif;
+    color: #3b3b3b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700&display=swap"
-    rel="stylesheet"
-  />
-  <link rel="stylesheet" href="styles.css" />
+  /* Book container */
+  #book-container {
+    width: 90vw;
+    max-width: 900px;
+    height: 70vh;
+    background: #fffefc;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-radius: 12px;
+    display: flex;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Spine line */
+  #book-spine {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, #b08b65, #7a5a33);
+    box-shadow: inset 0 0 5px #a67c3c;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+
+  /* Each page */
+  .page {
+    width: 50%;
+    padding: 40px 30px;
+    overflow-y: auto;
+  }
+  .left-page {
+    border-right: 2px solid transparent; /* spacing for spine */
+  }
+  .right-page {
+    border-left: 2px solid transparent; /* spacing for spine */
+  }
+
+  /* Page content typography */
+  h1, h2 {
+    margin-top: 0;
+    font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+    color: #5a3e1b;
+  }
+  p {
+    line-height: 1.6;
+    font-size: 1.1rem;
+    margin-bottom: 1.5em;
+  }
+
+  /* Navigation buttons */
+  #prev-btn, #next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: #7a5a33;
+    color: white;
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(122,90,51,0.7);
+    user-select: none;
+    transition: background-color 0.3s ease;
+  }
+  #prev-btn:hover, #next-btn:hover {
+    background: #a67c3c;
+  }
+  #prev-btn {
+    left: 10px;
+  }
+  #next-btn {
+    right: 10px;
+  }
+  #prev-btn:disabled, #next-btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+</style>
 </head>
 <body>
-  <div id="book-container" class="intro-animation">
-    <div id="book-spine"></div>
-    <div id="book">
-      <div class="page" data-page="1">
-        <div class="content">
-          <h1>First Love</h1>
-          <p><em>by Maestro Riez</em></p>
-          <button id="start-reading">Read</button>
-        </div>
-      </div>
-      <div class="page" data-page="2">
-        <div class="content">
-          <h2>About the Author</h2>
-          <p>
-            Maestro Riez is a passionate storyteller who brings heartfelt
-            tales to life through his unique narrative voice and deep emotion.
-          </p>
-        </div>
-      </div>
-      <div class="page" data-page="3">
-        <div class="content">
-          <h2>Chapter 1</h2>
-          <p>It all started when I was just laying on my bed, bored as usual...</p>
-        </div>
-      </div>
-      <div class="page" data-page="4">
-        <div class="content">
-          <h2>Chapter 2</h2>
-          <p>My friend Ahron introduced me to Ciara...</p>
-        </div>
-      </div>
-      <div class="page" data-page="5">
-        <div class="content">
-          <h2>Chapter 3</h2>
-          <p>After months of talking, I confessed my feelings...</p>
-        </div>
-      </div>
-      <div class="page" data-page="6">
-        <div class="content">
-          <h2>Chapter 4</h2>
-          <p>We finally met up, and everything felt like a dream...</p>
-        </div>
-      </div>
-      <div class="page" data-page="7">
-        <div class="content">
-          <h2>Chapter 5</h2>
-          <p>Though things got complicated, I still hold on to the memories...</p>
-        </div>
-      </div>
-    </div>
-    <button id="prev-btn" aria-label="Previous Page">&#10094;</button>
-    <button id="next-btn" aria-label="Next Page">&#10095;</button>
+
+<div id="book-container">
+  <div id="book-spine"></div>
+
+  <div class="page left-page" id="left-page">
+    <!-- Left page content will go here -->
+  </div>
+  <div class="page right-page" id="right-page">
+    <!-- Right page content will go here -->
   </div>
 
-  <!-- Add the script at the end -->
-  <script src="script.js" defer></script>
+  <button id="prev-btn" aria-label="Previous Page" disabled>&lt;</button>
+  <button id="next-btn" aria-label="Next Page">&gt;</button>
+</div>
+
+<script>
+  // Story content as an array of pages (2 pages per spread)
+  const pages = [
+    { left: "<h1>I'd still choose you</h1><p><em>by Riez</em></p>", right: "<h2>About the Author</h2><p>Riez is a passionate storyteller who brings heartfelt tales to life through his unique narrative voice and deep emotion.</p>" },
+    { left: "<h2>Chapter 1</h2><p>It all started when I was just laying on my bed, bored as usual...</p>", right: "<h2>Chapter 2</h2><p>My friend Ahron introduced me to Ciara...</p>" },
+    { left: "<h2>Chapter 3</h2><p>After months of talking, I confessed my feelings...</p>", right: "<h2>Chapter 4</h2><p>We finally met up, and everything felt like a dream...</p>" },
+    { left: "<h2>Chapter 5</h2><p>Though things got complicated, I still hold on to the memories...</p>", right: "<h2>The End</h2><p>Thank you for reading!</p>" }
+  ];
+
+  let currentSpread = 0;
+  const leftPage = document.getElementById('left-page');
+  const rightPage = document.getElementById('right-page');
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+
+  function renderPages() {
+    leftPage.innerHTML = pages[currentSpread].left;
+    rightPage.innerHTML = pages[currentSpread].right;
+
+    prevBtn.disabled = currentSpread === 0;
+    nextBtn.disabled = currentSpread === pages.length - 1;
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if (currentSpread > 0) {
+      currentSpread--;
+      renderPages();
+    }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    if (currentSpread < pages.length - 1) {
+      currentSpread++;
+      renderPages();
+    }
+  });
+
+  // Initial render
+  renderPages();
+</script>
+
 </body>
 </html>
