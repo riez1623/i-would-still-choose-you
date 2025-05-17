@@ -1,22 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
 body {
-  background-color: beige;
-  font-family: 'Georgia', serif;
   margin: 0;
-  padding: 0;
+  background: #f5f0e6;
+  font-family: 'Playfair Display', serif;
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  flex-direction: column;
-  color: #333;
+  user-select: none;
 }
 
-#intro-screen, #device-screen {
+.book-container {
   text-align: center;
 }
 
+.book {
+  display: flex;
+  width: 700px;
+  height: 500px;
+  background: #fff8f0;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+  border-radius: 8px;
+  position: relative;
+  perspective: 1200px;
+  margin-bottom: 20px;
+}
+
+.page {
+  width: 50%;
+  padding: 30px 40px;
+  box-sizing: border-box;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #4a3c31;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+  box-shadow: inset 0 0 15px #d6ccc2;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+  position: relative;
+}
+
+.left-page {
+  border-right: 2px solid transparent;
+  border-radius: 10px 0 0 10px;
+}
+
+.right-page {
+  border-left: 2px solid transparent;
+  border-radius: 0 10px 10px 0;
+}
+
+.spine {
+  width: 8px;
+  background: linear-gradient(180deg, #b8a58d, #7e6f5c);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+  margin: 0 2px;
+  border-radius: 2px;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+}
+
 button {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
+  background: #7e6f5c;
+  color: #fff8f0;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 25px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  cursor: pointer;
+  box-shadow: 0 5px 12px rgba(126,111,92,0.6);
+  transition: background 0.3s ease;
+  user-select: none;
+}
+
+button:hover {
+  background: #a7977d;
+}
+
+/* Page flip animation */
+.flip-left {
+  animation: flipLeft 0.6s forwards;
+}
+
+.flip-right {
+  animation: flipRight 0.6s forwards;
+}
+
+@keyframes flipLeft {
+  0% {
+    transform: rotateY(0deg);
+  }
+  100% {
+    transform: rotateY(-180deg);
+  }
+}
+
+@keyframes flipRight {
+  0% {
+    transform: rotateY(-180deg);
+  }
+  100% {
+    transform: rotateY(0deg);
+  }
 }
