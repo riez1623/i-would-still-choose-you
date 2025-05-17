@@ -1,25 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>First Love - Book</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>First Love - Book</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <div class="book-container">
-    <div class="book">
-      <div class="page left-page" id="leftPage"></div>
-      <div class="spine"></div>
-      <div class="page right-page" id="rightPage"></div>
+<div id="book-container" class="intro-animation">
+  <div id="book-spine"></div>
+  <div id="book">
+    <div class="page" data-page="1">
+      <div class="content">
+        <h1>First Love</h1>
+        <p><em>by Maestro Riez</em></p>
+        <button id="start-reading">Read</button>
+      </div>
     </div>
-
-    <div class="controls">
-      <button id="prevBtn">&lt; Prev</button>
-      <button id="nextBtn">Next &gt;</button>
+    <div class="page" data-page="2">
+      <div class="content">
+        <h2>About the Author</h2>
+        <p>Maestro Riez is a passionate storyteller who brings heartfelt tales to life through his unique narrative voice and deep emotion.</p>
+      </div>
+    </div>
+    <div class="page" data-page="3">
+      <div class="content">
+        <h2>Chapter 1</h2>
+        <p>It all started when I was just laying on my bed, bored as usual...</p>
+      </div>
+    </div>
+    <div class="page" data-page="4">
+      <div class="content">
+        <h2>Chapter 2</h2>
+        <p>My friend Ahron introduced me to Ciara...</p>
+      </div>
+    </div>
+    <div class="page" data-page="5">
+      <div class="content">
+        <h2>Chapter 3</h2>
+        <p>After months of talking, I confessed my feelings...</p>
+      </div>
+    </div>
+    <div class="page" data-page="6">
+      <div class="content">
+        <h2>Chapter 4</h2>
+        <p>We finally met up, and everything felt like a dream...</p>
+      </div>
+    </div>
+    <div class="page" data-page="7">
+      <div class="content">
+        <h2>Chapter 5</h2>
+        <p>Though things got complicated, I still hold on to the memories...</p>
+      </div>
     </div>
   </div>
+  <button id="prev-btn" aria-label="Previous Page">&#10094;</button>
+  <button id="next-btn" aria-label="Next Page">&#10095;</button>
+</div>
 
-  <script src="script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
